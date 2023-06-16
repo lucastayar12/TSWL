@@ -47,7 +47,6 @@ class Inserir : AppCompatActivity() {
                 .format(DateTimeFormatter.ofPattern("MM.dd.yyy hh.mm.ss a")),
             listBeneficios
         )
-        Toast.makeText(this, "$beneficiario", Toast.LENGTH_LONG).show()
         daoBeneficiario.criarBeneficiario(beneficiario)
         et_Pseudonimo.text.clear()
         et_Descricao.text.clear()

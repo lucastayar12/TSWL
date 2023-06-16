@@ -2,6 +2,9 @@ package com.example.tswl.telas
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,4 +28,5 @@ class Mostrar : AppCompatActivity() {
     fun voltarInicio(View: View) {
         this.finish()
     }
+
 }

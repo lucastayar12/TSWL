@@ -67,7 +67,7 @@
             app:strokeColor="#A24E4E" />
 
         <Button
-            android:id="@+id/button7"
+            android:id="@+id/btn_Inativar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"

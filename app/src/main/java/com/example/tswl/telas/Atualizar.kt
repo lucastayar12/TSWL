@@ -1,8 +1,10 @@
 package com.example.tswl.telas
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -44,11 +46,11 @@ class Atualizar : AppCompatActivity() {
         beneficiario.descricao = et_Descricao.text.toString()
         beneficiario.pseudonimo = et_Pseudonimo.text.toString()
         daoBeneficiario.atualizarBeneficiario(beneficiario)
-
         voltarInicio(view)
     }
 
     fun voltarInicio(View: View) {
-        this.finish()
+        this.startActivity(Intent(this, Mostrar::class.java))
     }
+
 }

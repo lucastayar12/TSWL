@@ -2,10 +2,12 @@ package com.example.tswl.repository
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tswl.model.Beneficiario
 import com.example.tswl.model.BeneficiarioAdapter
 import com.example.tswl.telas.Atualizar
+import com.google.android.gms.tasks.Task
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -18,18 +20,20 @@ class DAO_Beneficiario(context: Context) {
     var banco: DatabaseReference
     var listaBeneficiarios = ArrayList<Beneficiario>()
     var context: Context
-
+    private var index : Int
     init {
         this.banco = Firebase.database.reference
         this.context = context
+        this.index = getIndex()
     }
 
     fun criarBeneficiario(beneficiario: Beneficiario) {
-        this.banco.child(beneficiario.codigo.toString()).setValue(beneficiario)
+        this.banco.child("Beneficiarios").child(beneficiario.codigo.toString()).setValue(beneficiario)
+        this.banco.child("idSeq").setValue(getIndex() + 1)
     }
 
     fun lerBeneficiario(recyclerView: RecyclerView) {
-        banco.addValueEventListener(object : ValueEventListener {
+        banco.child("Beneficiarios").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
                     val gson = Gson()
@@ -64,9 +68,19 @@ class DAO_Beneficiario(context: Context) {
         beneficiarioRef.setValue(beneficiario)
     }
 
-    fun deletarBeneficiario(beneficiario: Beneficiario) {
-        val beneficiarioRef = banco.child(beneficiario.codigo.toString())
-        beneficiarioRef.removeValue()
+    fun getIndex(): Int {
+        banco.child("idSeq").addValueEventListener(object : ValueEventListener {
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                    index = snapshot.value.toString().toInt()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+
+        return index
     }
 
     fun insereBeneficiarioRecyclerView(

@@ -1,6 +1,7 @@
 package com.example.tswl.model
 
 import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -8,16 +9,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tswl.R
+import com.example.tswl.repository.DAO_Beneficiario
 
 class BeneficiarioAdapter(
     private val beneficiarios: List<Beneficiario>,
     val context: Context,
     val intent: Intent
 ) : RecyclerView.Adapter<BeneficiarioAdapter.ViewHolder>() {
+
+    val daoBeneficiario = DAO_Beneficiario(context)
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val btnAtualizar: Button = itemView.findViewById(R.id.btnAtualizar)
+        val btnInativar: Button = itemView.findViewById(R.id.btn_Inativar)
         val codigoBeneficiario: TextView = itemView.findViewById(R.id.tv_Codigo)
         val pseudonimoBeneficiario: TextView = itemView.findViewById(R.id.tv_Pseudonimo)
         val descricaoBeneficiario: TextView = itemView.findViewById(R.id.tv_Descricao)
@@ -41,10 +50,18 @@ class BeneficiarioAdapter(
         holder.btnAtualizar.setOnClickListener {
             context.startActivity(intent.putExtra("beneficiario", item))
         }
+
+        holder.btnInativar.setOnClickListener{
+            item.status = "Inativo"
+            daoBeneficiario.atualizarBeneficiario(item)
+            daoBeneficiario.lerBeneficiario(rv_Bene)
+        }
     }
 
     override fun getItemCount(): Int {
         return beneficiarios.size
     }
+
+
 
 }
