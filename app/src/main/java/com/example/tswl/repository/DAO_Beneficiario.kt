@@ -2,7 +2,9 @@ package com.example.tswl.repository
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tswl.model.Beneficiario
 import com.example.tswl.model.BeneficiarioAdapter
@@ -15,12 +17,16 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.*
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 class DAO_Beneficiario(context: Context) {
     var banco: DatabaseReference
     var listaBeneficiarios = ArrayList<Beneficiario>()
     var context: Context
-    private var index : Int
+    private var index: Int
+
     init {
         this.banco = Firebase.database.reference
         this.context = context
@@ -28,8 +34,9 @@ class DAO_Beneficiario(context: Context) {
     }
 
     fun criarBeneficiario(beneficiario: Beneficiario) {
-        this.banco.child("Beneficiarios").child(beneficiario.codigo.toString()).setValue(beneficiario)
-        this.banco.child("idSeq").setValue(getIndex() + 1)
+        this.banco.child("Beneficiarios").child(beneficiario.codigo.toString())
+            .setValue(beneficiario)
+        this.banco.child("idSeqBeneficiarios").setValue(getIndex() + 1)
     }
 
     fun lerBeneficiario(recyclerView: RecyclerView) {
@@ -64,16 +71,22 @@ class DAO_Beneficiario(context: Context) {
         return listaBeneficiarios
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun darBeneficio(beneficiario: Beneficiario) {
+        val beneficiarioRef = banco.child("Beneficiarios")
+        beneficiarioRef.child(beneficiario.codigo.toString()).setValue(beneficiario)
+    }
+
     fun atualizarBeneficiario(beneficiario: Beneficiario) {
         val beneficiarioRef = banco.child("Beneficiarios")
         beneficiarioRef.child(beneficiario.codigo.toString()).setValue(beneficiario)
     }
 
     fun getIndex(): Int {
-        banco.child("idSeq").addValueEventListener(object : ValueEventListener {
+        banco.child("idSeqBeneficiarios").addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                    index = snapshot.value.toString().toInt()
+                index = snapshot.value.toString().toInt()
             }
 
             override fun onCancelled(error: DatabaseError) {
