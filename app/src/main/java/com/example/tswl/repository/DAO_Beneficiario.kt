@@ -36,6 +36,7 @@ class DAO_Beneficiario(context: Context) {
         banco.child("Beneficiarios").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
+                    listaBeneficiarios.clear()
                     val gson = Gson()
                     for (i in snapshot.children) {
                         val json = gson.toJson(i.value)
@@ -64,8 +65,8 @@ class DAO_Beneficiario(context: Context) {
     }
 
     fun atualizarBeneficiario(beneficiario: Beneficiario) {
-        val beneficiarioRef = banco.child(beneficiario.codigo.toString())
-        beneficiarioRef.setValue(beneficiario)
+        val beneficiarioRef = banco.child("Beneficiarios")
+        beneficiarioRef.child(beneficiario.codigo.toString()).setValue(beneficiario)
     }
 
     fun getIndex(): Int {

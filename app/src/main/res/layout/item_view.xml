@@ -50,6 +50,22 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/btnDarBeneficio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_weight="1"
+            android:backgroundTint="#4CAF50"
+            android:gravity="center"
+            android:insetLeft="8dp"
+            android:insetRight="3dp"
+            app:icon="@android:drawable/ic_menu_add"
+            app:iconGravity="textStart"
+            app:iconTint="#FFFFFF"
+            app:iconTintMode="src_in"
+            app:strokeColor="#A24E4E" />
+
+        <Button
             android:id="@+id/btnAtualizar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -77,8 +93,7 @@
             android:gravity="center"
             android:insetLeft="3dp"
             app:icon="@android:drawable/ic_delete"
-            app:iconGravity="textStart"
-            app:iconPadding="5dp" />
+            app:iconGravity="textStart" />
     </LinearLayout>
 
     <TextView

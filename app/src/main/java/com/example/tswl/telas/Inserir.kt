@@ -5,13 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.tswl.R
 import com.example.tswl.model.Beneficiario
 import com.example.tswl.repository.DAO_Beneficiario
-import com.example.tswl.repository.IndexSingleton
-import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -32,7 +29,6 @@ class Inserir : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun inserirBeneficiario(View: View) {
-        IndexSingleton.incrementIndex()
         var listBeneficios = ArrayList<String>()
         listBeneficios.add(
             ZonedDateTime.now(ZoneId.of("America/Sao_Paulo"))
@@ -40,7 +36,7 @@ class Inserir : AppCompatActivity() {
         )
 
         val beneficiario = Beneficiario(
-            IndexSingleton.index,
+            daoBeneficiario.getIndex(),
             et_Pseudonimo.text.toString(),
             et_Descricao.text.toString(),
             ZonedDateTime.now(ZoneId.of("America/Sao_Paulo"))

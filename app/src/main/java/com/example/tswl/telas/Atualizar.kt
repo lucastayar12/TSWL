@@ -50,7 +50,7 @@ class Atualizar : AppCompatActivity() {
     }
 
     fun voltarInicio(View: View) {
-        this.startActivity(Intent(this, Mostrar::class.java))
+        this.finish()
     }
 
 }
