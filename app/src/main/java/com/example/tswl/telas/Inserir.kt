@@ -32,7 +32,7 @@ class Inserir : AppCompatActivity() {
         var listBeneficios = ArrayList<String>()
         listBeneficios.add(
             ZonedDateTime.now(ZoneId.of("America/Sao_Paulo"))
-                .format(DateTimeFormatter.ofPattern("MM.dd.yyy hh.mm.ss a"))
+                .format(DateTimeFormatter.ofPattern("dd/MM/yyy hh:mm:ss a"))
         )
 
         val beneficiario = Beneficiario(
@@ -40,7 +40,7 @@ class Inserir : AppCompatActivity() {
             et_Pseudonimo.text.toString(),
             et_Descricao.text.toString(),
             ZonedDateTime.now(ZoneId.of("America/Sao_Paulo"))
-                .format(DateTimeFormatter.ofPattern("MM.dd.yyy hh.mm.ss a")),
+                .format(DateTimeFormatter.ofPattern("dd/MM/yyy hh:mm:ss a")),
             listBeneficios
         )
         daoBeneficiario.criarBeneficiario(beneficiario)

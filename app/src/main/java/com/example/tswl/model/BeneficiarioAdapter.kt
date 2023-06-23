@@ -15,6 +15,8 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.list.listItems
 import com.example.tswl.R
 import com.example.tswl.repository.DAO_Beneficiario
 import java.time.ZoneId
@@ -31,6 +33,7 @@ class BeneficiarioAdapter(
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val btnDarBeneficio : Button = itemView.findViewById(R.id.btnDarBeneficio)
+        val btnBeneficios : Button = itemView.findViewById(R.id.btnBeneficios)
         val btnAtualizar: Button = itemView.findViewById(R.id.btnAtualizar)
         val btnInativar: Button = itemView.findViewById(R.id.btn_Inativar)
         val codigoBeneficiario: TextView = itemView.findViewById(R.id.tv_Codigo)
@@ -61,10 +64,17 @@ class BeneficiarioAdapter(
         holder.btnDarBeneficio.setOnClickListener{
             item.dataBeneficios.add(
                 ZonedDateTime.now(ZoneId.of("America/Sao_Paulo"))
-                    .format(DateTimeFormatter.ofPattern("MM.dd.yyy hh.mm.ss a"))
+                    .format(DateTimeFormatter.ofPattern("Data: dd/MM/yyy hh:mm:ss a"))
             )
-
             daoBeneficiario.darBeneficio(item)
+        }
+
+        holder.btnBeneficios.setOnClickListener {
+            MaterialDialog(context).show {
+                title(text = "Beneficios")
+                listItems(items = item.dataBeneficios)
+                positiveButton(text = "Fechar")
+            }
         }
 
         holder.btnInativar.setOnClickListener{
