@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.example.tswl.R
 import com.example.tswl.model.Usuario
 import com.example.tswl.repository.DAO_Usuarios
+import kotlinx.coroutines.delay
 
 class Login : AppCompatActivity() {
 
@@ -30,13 +31,14 @@ class Login : AppCompatActivity() {
 
     fun telaCadastro(view : View){ startActivity(Intent(this, Cadastrar::class.java)) }
 
-    fun tryLogin(view: View){
+     fun tryLogin(view: View){
         var user = Usuario(0, etLogin.text.toString(), etSenha.text.toString())
         var logged = daoUsuarios.login(user)
 
-        if (logged)
+        if (logged){
             startActivity(Intent(this, MainActivity::class.java))
+        }
         else
-            Toast.makeText(this, "Erro na autenticação!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Falha na autenticação!", Toast.LENGTH_SHORT).show()
     }
 }

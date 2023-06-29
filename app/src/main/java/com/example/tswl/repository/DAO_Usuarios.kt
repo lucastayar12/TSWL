@@ -11,16 +11,17 @@ import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 
 class DAO_Usuarios {
-    var banco : DatabaseReference = Firebase.database.reference
+    var banco: DatabaseReference = Firebase.database.reference
     var listUsuarios = ArrayList<Usuario>()
-    private var index : Int
-    private var logged : Boolean
+    private var index: Int
+    private var logged: Boolean
+
     init {
         index = getIndex()
         logged = false
     }
 
-    fun criarUsuario(usuario: Usuario){
+    fun criarUsuario(usuario: Usuario) {
         val UsuarioRef = banco.child("Usuarios")
         UsuarioRef.child(usuario.codigo.toString()).setValue(usuario)
     }
@@ -40,16 +41,17 @@ class DAO_Usuarios {
         return index
     }
 
-    fun login(usuario: Usuario) {
-        banco.child("Usuarios").addValueEventListener(object : ValueEventListener{
+    fun login(usuario: Usuario): Boolean {
+        banco.child("Usuarios").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val gson = Gson()
-                for(i in snapshot.children){
+                for (i in snapshot.children) {
                     val json = gson.toJson(i.value)
                     val usuarioB = gson.fromJson(json, Usuario::class.java)
 
                     logged = (usuarioB.login == usuario.login) && (usuarioB.senha == usuario.senha)
                 }
+
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -57,11 +59,8 @@ class DAO_Usuarios {
             }
 
         })
-    }
 
-    fun getLogged() : Boolean{
         return logged
     }
-
 
 }

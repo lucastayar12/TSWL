@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/layout_bg"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_margin="6dp"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -55,7 +57,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="-32dp"
+        >
 
         <Button
             android:id="@+id/btnDarBeneficio"
@@ -67,7 +71,8 @@
             android:gravity="center"
             android:insetLeft="8dp"
             android:insetRight="3dp"
-            app:icon="@android:drawable/ic_menu_add"
+            android:text="DAR BENEFICIO"
+            android:textSize="11sp"
             app:iconGravity="textStart"
             app:iconTint="#FFFFFF"
             app:iconTintMode="src_in"
@@ -83,7 +88,8 @@
             android:gravity="center"
             android:insetLeft="8dp"
             android:insetRight="3dp"
-            app:icon="@android:drawable/ic_menu_edit"
+            android:text="EDITAR"
+            android:textSize="11sp"
             app:iconGravity="textStart"
             app:iconPadding="0dp"
             app:iconTint="#FFFFFF"
@@ -101,7 +107,8 @@
             android:gravity="center"
             android:insetLeft="8dp"
             android:insetRight="3dp"
-            app:icon="@android:drawable/ic_delete"
+            android:text="INATIVAR"
+            android:textSize="11sp"
             app:iconGravity="textStart" />
     </LinearLayout>
 
